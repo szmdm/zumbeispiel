@@ -36,10 +36,12 @@ const asistValue = document.getElementById('asistValue');
 const notesValue = document.getElementById('notesValue');
 
 const formDate = document.getElementById('formDate');
+const formPlace = document.getElementById('formPlace');
 
 function InsertData() {
 
-    set(ref(db, 'Fussballspiel/' + selectedDate.innerHTML), {
+    set(ref(db, 'Fussballspiel/' + formDate.innerHTML), {
+        place: formPlace.innerHTML,
         name: playerNameValue.value,
         score: scoreValue.value,
         asist: asistValue.value,
@@ -64,7 +66,7 @@ const RemoveData = () => {
 const FindData = () => {
     const dbref = ref(db);
 
-    get(child(dbref, 'Fussballspiel/' + formDate.innerHTML))
+    get(child(dbref, 'Fussballspiel/' + formDate.innerHTML + formPlace.innerHTML))
     .then((snapshot) => {
         if (snapshot.exists()) {
             someFieldId.innerHTML = "name" + snapshot.val().name;
