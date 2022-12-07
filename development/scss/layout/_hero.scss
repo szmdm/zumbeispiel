@@ -1,0 +1,18 @@
+@import "../partials/variables";
+
+#hero {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // width: $heroWidth;
+    
+    .heroHeader {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .selectRow {
+        border: 1px solid black;
+    }
+}

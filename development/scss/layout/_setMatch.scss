@@ -1,0 +1,13 @@
+@import "../partials/variables";
+
+#setMatch {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // width: $heroWidth;
+    .matchValidation {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
