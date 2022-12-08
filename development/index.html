@@ -20,21 +20,35 @@
     <!-- SET MATCH -->
 
     <section id="setMatchSection">
-        <h2>select the game</h2>
-        <div class="matchValidation">
-            <div class="formDate">
-                <label for="dateSelect">date</label>
-                <input type="date" id="dateSelect" value="" />
+        <div id="naviSection">
+            <div class="setMatchNavi">
+                <h2>select the game</h2>
+                <div class="matchValidation">
+                    <div class="formDate">
+                        <label for="dateSelect">date</label>
+                        <input type="date" id="dateSelect" value="" />
+                    </div>
+                    <div class="formPlace">
+                        <label for="placeSelect">place</label>
+                        <select id="placeSelect">
+                            <option>Lokajskiego</option>
+                            <option>Kajakowa</option>
+                            <option>inna miejscówka</option>
+                        </select>
+                    </div>
+                    <button id="setMatchBtn">SET MATCH</button>
+                </div>
             </div>
-            <div class="formPlace">
-                <label for="placeSelect">place</label>
-                <select id="placeSelect">
-                    <option>Lokajskiego</option>
-                    <option>Kajakowa</option>
-                    <option>inna miejscówka</option>
-                </select>
+            <div class="findMatchNavi">
+                <h2>find the game</h2>
+                <div class="matchValidation">
+                    <div class="findDate">
+                        <label for="dateFind">date</label>
+                        <input type="date" id="dateFind" value="" />
+                    </div>
+                    <button id="findMatchBtn">FIND MATCH</button>
+                </div>
             </div>
-            <button id="setMatchBtn">SET MATCH</button>
         </div>
     </section>
 

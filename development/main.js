@@ -38,6 +38,8 @@ const notesValue = document.getElementById('notesValue');
 const formDate = document.getElementById('formDate');
 const formPlace = document.getElementById('formPlace');
 
+const findDate = document.getElementById('dateFind');
+
 function InsertData() {
 
     set(ref(db, 'Fussballspiel/' + formDate.innerHTML), {
@@ -56,7 +58,19 @@ function InsertData() {
 };
 
 const UpdateData = () => {
-
+    update(ref(db, 'Fussballspiel/' + formDate.innerHTML), {
+        place: formPlace.innerHTML,
+        name: playerNameValue.value,
+        score: scoreValue.value,
+        asist: asistValue.value,
+        notes: notesValue.value,
+    })
+    .then(() => {
+        alert('Data updated successfully!');
+    })
+    .catch((error) => {
+        alert(error)
+    })
 };
 
 const RemoveData = () => {
@@ -82,5 +96,7 @@ const FindData = () => {
 };
 
 saveBtn.addEventListener('click', InsertData);
+updateBtn.addEventListener('click', UpdateData);
 
 
+console.log(formDate.innerHTML);
