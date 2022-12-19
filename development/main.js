@@ -40,11 +40,12 @@ const formPlace = document.getElementById('formPlace');
 
 const findDate = document.getElementById('dateFind');
 
+
+
 function InsertData() {
 
-    set(ref(db, 'Fussballspiel/' + formDate.innerHTML), {
+    set(ref(db, 'Fussballspiel/' + formDate.innerHTML + "/" + playerNameValue.value), {
         place: formPlace.innerHTML,
-        name: playerNameValue.value,
         score: scoreValue.value,
         asist: asistValue.value,
         notes: notesValue.value,
@@ -58,7 +59,7 @@ function InsertData() {
 };
 
 const UpdateData = () => {
-    update(ref(db, 'Fussballspiel/' + formDate.innerHTML), {
+    update(ref(db, 'Fussballspiel/' + formDate.innerHTML + "/" + playerNameValue.value), {
         place: formPlace.innerHTML,
         name: playerNameValue.value,
         score: scoreValue.value,
@@ -74,13 +75,19 @@ const UpdateData = () => {
 };
 
 const RemoveData = () => {
-
+    remove(ref(db, 'Fussballspiel/' + formDate.innerHTML + "/" + playerNameValue.value))
+    .then(() => {
+        alert('Data removed!');
+    })
+    .catch((error) => {
+        alert(error)
+    })
 };
 
 const FindData = () => {
     const dbref = ref(db);
 
-    get(child(dbref, 'Fussballspiel/' + formDate.innerHTML + formPlace.innerHTML))
+    get(child(dbref, 'Fussballspiel/' + formDate.innerHTML + "/" + playerNameValue.value))
     .then((snapshot) => {
         if (snapshot.exists()) {
             someFieldId.innerHTML = "name" + snapshot.val().name;
@@ -97,6 +104,4 @@ const FindData = () => {
 
 saveBtn.addEventListener('click', InsertData);
 updateBtn.addEventListener('click', UpdateData);
-
-
-console.log(formDate.innerHTML);
+removeBtn.addEventListener('click', RemoveData);
