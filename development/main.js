@@ -41,7 +41,6 @@ const formPlace = document.getElementById('formPlace');
 const findDate = document.getElementById('dateFind');
 
 
-
 function InsertData() {
 
     set(ref(db, 'Fussballspiel/' + formDate.innerHTML + "/" + playerNameValue.value), {

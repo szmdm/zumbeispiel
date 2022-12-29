@@ -7,6 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/main.css" />
     <title>zumbeiSpiel</title>
+    <script type="module" src="main.js"></script>
+    <!-- ADD TO SELECT THE GAME SECTION -->
+    <script defer src="./js/setmatch.js"></script>
 </head>
 
 <body>
@@ -57,45 +60,32 @@
     <section id="hero">
         <div id="mainForm">
             <div class="selection-container">
-                <!-- <form id="player-form">  -->
                 <div class="heroHeader">
                     <h2>SPIEL:</h2>
                     <div id="formDate"></div>
                     <div id="formPlace"></div>
                 </div>
-                <div class="selectRow">
-                    <button class="add-del">X</button>
-                    <span class="payer-name">
-                        <label for="text">player name</label>
-                        <input type="text" id="playerNameValue" />
-                    </span>
-                    <span class="score">
-                        <label for="number">scores</label>
-                        <input type="number" id="scoreValue" />
-                    </span>
-                    <span class="asist">
-                        <label for="number">asists</label>
-                        <input type="number" id="asistValue" />
-                    </span>
-                    <span class="notes">
-                        <label for="textarea">notes</label>
-                        <textarea id="notesValue"></textarea>
-                    </span>
-                    <button class="add-del">V</button>
+
+                <!-- PLAYER ROW -->
+                <p>here is selectRow div</p>
+
+                <div id="selectRow">
                 </div>
+
+                <!-- END PLAYER ROW -->
+
+
                 <button id="save">send</button>
                 <button id="update">update</button>
                 <button id="remove">remove</button>
-                <!-- </form> -->
             </div>
         </div>
     </section>
 
-    <!-- ADD TO SELECT THE GAME SECTION -->
-    <script src="./js/setmatch.js"></script>
-    <!-- END SECTION -->
 
-    <script type="module" src="main.js"></script>
+
+
+    <script src="./js/players.js"></script>
 </body>
 
 </html>
