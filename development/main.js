@@ -30,10 +30,14 @@ const updateBtn = document.getElementById('update');
 const removeBtn = document.getElementById('remove');
 const findBtn = document.getElementById('find');
 
-const playerNameValue = document.getElementById('playerNameValue');
-const scoreValue = document.getElementById('scoreValue');
-const asistValue = document.getElementById('asistValue');
-const notesValue = document.getElementById('notesValue');
+// DOM single row elements
+
+const playerNameValue = document.getElementById('playerName').value;
+const scoreValue = document.getElementById('playerScore');
+const asistValue = document.getElementById('playerAssist');
+const notesValue = document.getElementById('playerNote');
+
+// DOM data and place verification
 
 const formDate = document.getElementById('formDate');
 const formPlace = document.getElementById('formPlace');
@@ -43,7 +47,7 @@ const findDate = document.getElementById('dateFind');
 
 function InsertData() {
 
-    set(ref(db, 'Fussballspiel/' + formDate.innerHTML + "/" + playerNameValue.value), {
+    set(ref(db, 'Fussballspiel/' + formDate.innerHTML + "/" + playerNameValue), {
         place: formPlace.innerHTML,
         score: scoreValue.value,
         asist: asistValue.value,
@@ -58,7 +62,7 @@ function InsertData() {
 };
 
 const UpdateData = () => {
-    update(ref(db, 'Fussballspiel/' + formDate.innerHTML + "/" + playerNameValue.value), {
+    update(ref(db, 'Fussballspiel/' + formDate.innerHTML + "/" + playerNameValue), {
         place: formPlace.innerHTML,
         name: playerNameValue.value,
         score: scoreValue.value,
@@ -74,7 +78,7 @@ const UpdateData = () => {
 };
 
 const RemoveData = () => {
-    remove(ref(db, 'Fussballspiel/' + formDate.innerHTML + "/" + playerNameValue.value))
+    remove(ref(db, 'Fussballspiel/' + formDate.innerHTML + "/" + playerNameValue))
     .then(() => {
         alert('Data removed!');
     })
@@ -86,7 +90,7 @@ const RemoveData = () => {
 const FindData = () => {
     const dbref = ref(db);
 
-    get(child(dbref, 'Fussballspiel/' + formDate.innerHTML + "/" + playerNameValue.value))
+    get(child(dbref, 'Fussballspiel/' + formDate.innerHTML + "/" + playerNameValue))
     .then((snapshot) => {
         if (snapshot.exists()) {
             someFieldId.innerHTML = "name" + snapshot.val().name;

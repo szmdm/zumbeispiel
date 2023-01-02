@@ -1,17 +1,20 @@
-class Player {
-    constructor(id, name, score, assist, description) {
-        this.id = id,
-        this.name = name;
-        this.score = score;
-        this.assist = assist;
-        this.description = description;
-    }
-}
+import { player0, player1, player2, player3 } from "../js/playersDataBase.js";
 
-let player0 = new Player("0", "playerNameValue", "scoreValue", "asistValue", "notesValue");
-let player1 = new Player("1", "Dobry", "0", "0", "");
-let player2 = new Player("2", "Tasior", "0", "0", "");
-let player3 = new Player("3", "Kalafior", "4", "5", "dochodzi w 10 minut");
+// class Player {
+//     constructor(id, name, idName, idScore, idAssist, idDescription) {
+//         this.id = id,
+//         this.name = name,
+//         this.idName = idName;
+//         this.idScore = idScore;
+//         this.idAssist = idAssist;
+//         this.idDescription = idDescription;
+//     }
+// }
+
+// let player0 = new Player("0", "Player0", "playerName", "playerScore", "playerAssist", "playerNote");
+// let player1 = new Player("1", "Dobry", "dobryName", "dobryScore", "dobryAssist", "dobryNote");
+// let player2 = new Player("2", "Tasior", "tasiorName", "tasiorScore", "tasiorAssist", "tasiorNote");
+// let player3 = new Player("3", "Kalafior", "kalafiorName", "kalafiorScore", "kalafiorAssist", "kalafiorNote");
 
 const playerRow = document.getElementById("selectRow");
 
@@ -22,19 +25,19 @@ const addPlayerRow = (player) => {
     <button class="add-del">X</button>
     <span class="player-name">
         <label for="text">player name</label>
-        <input type="text" id="${player.name}" />
+        <input type="text" value="${player.name}" id="${player.idName}" />
     </span>
     <span class="score">
         <label for="number">scores</label>
-        <input type="number" id="${player.score}" />
+        <input type="number" id="${player.idScore}" />
     </span>
     <span class="asist">
         <label for="number">asists</label>
-        <input type="number" id="${player.assist}" />
+        <input type="number" id="${player.idAssist}" />
     </span>
     <span class="notes">
         <label for="textarea">notes</label>
-        <textarea id="${player.description}"></textarea>
+        <textarea id="${player.idDescription}"></textarea>
     </span>
     <button class="add-del">V</button> 
     `;
