@@ -16,3 +16,6 @@ let player3 = new Player("3", "Kalafior", "kalafiorName", "kalafiorScore", "kala
 
 
 export { player0, player1, player2, player3 };
+
+const playerArray = [player0, player1, player2, player3];
+export { playerArray };

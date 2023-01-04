@@ -1,3 +1,5 @@
+import { playerArray } from "../js/playersDataBase.js";
+
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-analytics.js";
@@ -32,7 +34,17 @@ const findBtn = document.getElementById('find');
 
 // DOM single row elements
 
-const playerNameValue = document.getElementById('playerName').value;
+const getPlayerNameId = (array) => {
+    array.forEach(element => {
+        const playerId = element.idName;
+        const playerNameValue = document.getElementById(playerId).value;
+        console.log(playerNameValue)
+        return playerNameValue
+    });
+}
+
+console.log(getPlayerNameId(playerArray));
+
 const scoreValue = document.getElementById('playerScore');
 const asistValue = document.getElementById('playerAssist');
 const notesValue = document.getElementById('playerNote');
@@ -47,7 +59,7 @@ const findDate = document.getElementById('dateFind');
 
 function InsertData() {
 
-    set(ref(db, 'Fussballspiel/' + formDate.innerHTML + "/" + playerNameValue), {
+    set(ref(db, 'Fussballspiel/' + formDate.innerHTML + "/" + playerNameValue.value), {
         place: formPlace.innerHTML,
         score: scoreValue.value,
         asist: asistValue.value,
