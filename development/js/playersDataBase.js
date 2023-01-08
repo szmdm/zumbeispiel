@@ -14,8 +14,7 @@ let player1 = new Player("1", "Dobry", "dobryName", "dobryScore", "dobryAssist",
 let player2 = new Player("2", "Tasior", "tasiorName", "tasiorScore", "tasiorAssist", "tasiorNote");
 let player3 = new Player("3", "Kalafior", "kalafiorName", "kalafiorScore", "kalafiorAssist", "kalafiorNote");
 
+const playerArray = [player0, player1, player2, player3];
 
 export { player0, player1, player2, player3 };
-
-const playerArray = [player0, player1, player2, player3];
 export { playerArray };

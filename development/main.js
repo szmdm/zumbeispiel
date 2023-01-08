@@ -34,20 +34,37 @@ const findBtn = document.getElementById('find');
 
 // DOM single row elements
 
-const getPlayerNameId = (array) => {
-    array.forEach(element => {
-        const playerId = element.idName;
-        const playerNameValue = document.getElementById(playerId).value;
-        console.log(playerNameValue)
-        return playerNameValue
-    });
-}
-
-console.log(getPlayerNameId(playerArray));
 
 const scoreValue = document.getElementById('playerScore');
 const asistValue = document.getElementById('playerAssist');
 const notesValue = document.getElementById('playerNote');
+
+
+const playerNameValues = (object) => {
+    const idNamesArray = [];
+    console.log(typeof (idNamesArray))
+    console.log(idNamesArray)
+    object.forEach(element => {
+        const playerId = element.idName;
+        const playerNameValue = document.getElementById(playerId).value;
+        idNamesArray.push(playerNameValue);
+        return idNamesArray;
+    })
+}
+
+const names = playerNameValues(playerArray);
+
+
+const playerDescriptionValues = (array) => {
+    const idDescriptionArray = [];
+    array.forEach(element => {
+        const idDescription = element.idDescription;
+        const playerDescriptionValue = document.getElementById(idDescription).value;
+        idDescriptionArray.push(playerDescriptionValue);
+        console.log(idDescriptionArray)
+        return idDescriptionArray;
+    })
+}
 
 // DOM data and place verification
 
@@ -59,19 +76,31 @@ const findDate = document.getElementById('dateFind');
 
 function InsertData() {
 
-    set(ref(db, 'Fussballspiel/' + formDate.innerHTML + "/" + playerNameValue.value), {
-        place: formPlace.innerHTML,
-        score: scoreValue.value,
-        asist: asistValue.value,
-        notes: notesValue.value,
-    })
-    .then(() => {
-        alert('Data added successfully!');
-    })
-    .catch((error) => {
-        alert(error)
-    })
+    const getPlayerNameId = () => {
+
+
+        for (let key of Object.keys(names)) {
+
+            set(ref(db, 'Fussballspiel/' + formDate.innerHTML + "/" + key), {
+                place: formPlace.innerHTML,
+                score: scoreValue.value,
+                asist: asistValue.value,
+                notes: notesValue.value,
+            })
+                .then(() => {
+                    alert('Data added successfully!');
+                })
+                .catch((error) => {
+                    alert(error)
+                })
+        }
+    }
+
+    getPlayerNameId();
+
 };
+
+
 
 const UpdateData = () => {
     update(ref(db, 'Fussballspiel/' + formDate.innerHTML + "/" + playerNameValue), {
@@ -81,40 +110,40 @@ const UpdateData = () => {
         asist: asistValue.value,
         notes: notesValue.value,
     })
-    .then(() => {
-        alert('Data updated successfully!');
-    })
-    .catch((error) => {
-        alert(error)
-    })
+        .then(() => {
+            alert('Data updated successfully!');
+        })
+        .catch((error) => {
+            alert(error)
+        })
 };
 
 const RemoveData = () => {
     remove(ref(db, 'Fussballspiel/' + formDate.innerHTML + "/" + playerNameValue))
-    .then(() => {
-        alert('Data removed!');
-    })
-    .catch((error) => {
-        alert(error)
-    })
+        .then(() => {
+            alert('Data removed!');
+        })
+        .catch((error) => {
+            alert(error)
+        })
 };
 
 const FindData = () => {
     const dbref = ref(db);
 
     get(child(dbref, 'Fussballspiel/' + formDate.innerHTML + "/" + playerNameValue))
-    .then((snapshot) => {
-        if (snapshot.exists()) {
-            someFieldId.innerHTML = "name" + snapshot.val().name;
-            someFieldId.innerHTML = "score" + snapshot.val().score;
-        }
-        else {
-            alert ("no data found");
-        }
-    })
-    .catch((error) => {
-        alert(error);
-    })
+        .then((snapshot) => {
+            if (snapshot.exists()) {
+                someFieldId.innerHTML = "name" + snapshot.val().name;
+                someFieldId.innerHTML = "score" + snapshot.val().score;
+            }
+            else {
+                alert("no data found");
+            }
+        })
+        .catch((error) => {
+            alert(error);
+        })
 };
 
 saveBtn.addEventListener('click', InsertData);
