@@ -37,34 +37,32 @@ const findBtn = document.getElementById('find');
 
 const scoreValue = document.getElementById('playerScore');
 const asistValue = document.getElementById('playerAssist');
-const notesValue = document.getElementById('playerNote');
 
 
-const playerNameValues = (object) => {
+
+const playerNameValues = (array) => {
     const idNamesArray = [];
-    console.log(typeof (idNamesArray))
-    console.log(idNamesArray)
-    object.forEach(element => {
+
+    array.forEach(element => {
         const playerId = element.idName;
         const playerNameValue = document.getElementById(playerId).value;
         idNamesArray.push(playerNameValue);
-        return idNamesArray;
     })
+    return idNamesArray;
 }
-
-const names = playerNameValues(playerArray);
-
 
 const playerDescriptionValues = (array) => {
     const idDescriptionArray = [];
+
     array.forEach(element => {
         const idDescription = element.idDescription;
         const playerDescriptionValue = document.getElementById(idDescription).value;
         idDescriptionArray.push(playerDescriptionValue);
-        console.log(idDescriptionArray)
-        return idDescriptionArray;
     })
+    return idDescriptionArray;
 }
+const playerName = playerNameValues(playerArray);
+const playerNote = playerDescriptionValues(playerArray);
 
 // DOM data and place verification
 
@@ -74,32 +72,23 @@ const formPlace = document.getElementById('formPlace');
 const findDate = document.getElementById('dateFind');
 
 
-function InsertData() {
+const InsertData = () => {
 
-    const getPlayerNameId = () => {
-
-
-        for (let key of Object.keys(names)) {
-
-            set(ref(db, 'Fussballspiel/' + formDate.innerHTML + "/" + key), {
-                place: formPlace.innerHTML,
-                score: scoreValue.value,
-                asist: asistValue.value,
-                notes: notesValue.value,
+    playerName.forEach(element => {
+        set(ref(db, 'Fussballspiel/' + formDate.innerHTML + "/" + element), {
+            place: formPlace.innerHTML,
+            score: scoreValue.value,
+            asist: asistValue.value,
+            notes: notesValue.value,
+        })
+            .then(() => {
+                alert('Data added successfully!');
             })
-                .then(() => {
-                    alert('Data added successfully!');
-                })
-                .catch((error) => {
-                    alert(error)
-                })
-        }
-    }
-
-    getPlayerNameId();
-
+            .catch((error) => {
+                alert(error)
+            })
+    });
 };
-
 
 
 const UpdateData = () => {
