@@ -7,11 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/main.css" />
     <title>zumbeiSpiel</title>
-    
     <!-- ADD TO SELECT THE GAME SECTION -->
     <script defer src="./js/setmatch.js"></script>
+    <!-- CHART.JS -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-
 <body>
     <!-- HEADER -->
     
@@ -76,6 +76,43 @@
                 <button id="update">update</button>
                 <button id="remove">remove</button>
             </div>
+        </div>
+    </section>
+
+    <!-- STATS -->
+
+    <section id="stats">
+        <div id="statsSection">
+            <h2 class="statsHeader">GO TO GAMES STATISTICS</h2>
+            <a href="./pages/stats.html">
+                <button class="goToStatsBtn">SEE STATISTICS</button>
+            </a>
+        </div>
+        <div class="statPresents" style="width: 600px;">
+            <canvas id="myChart" width="600" height="400"></canvas>
+
+            <script>
+                const ctx = document.getElementById('myChart');
+              
+                new Chart(ctx, {
+                  type: 'bar',
+                  data: {
+                    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                    datasets: [{
+                      label: 'player statistics',
+                      data: [12, 19, 3, 5, 2, 3],
+                      borderWidth: 1
+                    }]
+                  },
+                  options: {
+                    scales: {
+                      y: {
+                        beginAtZero: true
+                      }
+                    }
+                  }
+                });
+              </script>
         </div>
     </section>
 

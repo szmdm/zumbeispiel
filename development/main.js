@@ -1,5 +1,8 @@
 import { playerArray } from "../js/playersDataBase.js";
 
+import { getDatabase, set, get, update, remove, ref, child, onValue }
+    from "https://www.gstatic.com/firebasejs/9.14.0/firebase-database.js";
+// "https://www.gstatic.com/firebasejs/9.14.0/firebase-database.js"
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-analytics.js";
@@ -22,9 +25,6 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
-
-import { getDatabase, set, get, update, remove, ref, child }
-    from "https://www.gstatic.com/firebasejs/9.14.0/firebase-database.js"
 
 const db = getDatabase();
 const saveBtn = document.getElementById('save');
@@ -164,3 +164,27 @@ const RemoveData = () => {
 saveBtn.addEventListener('click', InsertData);
 updateBtn.addEventListener('click', UpdateData);
 removeBtn.addEventListener('click', RemoveData);
+
+// retrieve firebase DATA
+
+const savedData = ref(db, 'Fussballspiel/');
+onValue(savedData, (snapshot) => {
+    const data = snapshot.val();
+    console.log("🚀 ~ file: main.js:173 ~ onValue ~ data", data)
+    let gameTimes = Object.keys(data);
+    for (let i = 0; i < gameTimes.length; i++) {
+        let time = gameTimes[i];
+        let gamePlayers = Object.keys(data[time]);
+        for (let j = 0; j < gamePlayers.length; j++) {
+            let player = gamePlayers[j];
+            let score = data[time][player].score;
+            let assist = data[time][player].asist;
+            let note = data[time][player].notes;
+        }
+    }
+})
+
+function errData(err) {
+    console.log('Error!: ')
+    console.log(err)
+}
