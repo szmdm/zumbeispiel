@@ -165,26 +165,79 @@ saveBtn.addEventListener('click', InsertData);
 updateBtn.addEventListener('click', UpdateData);
 removeBtn.addEventListener('click', RemoveData);
 
+
+
 // retrieve firebase DATA
 
 const savedData = ref(db, 'Fussballspiel/');
+
 onValue(savedData, (snapshot) => {
     const data = snapshot.val();
-    console.log("🚀 ~ file: main.js:173 ~ onValue ~ data", data)
     let gameTimes = Object.keys(data);
-    for (let i = 0; i < gameTimes.length; i++) {
-        let time = gameTimes[i];
-        let gamePlayers = Object.keys(data[time]);
-        for (let j = 0; j < gamePlayers.length; j++) {
-            let player = gamePlayers[j];
-            let score = data[time][player].score;
-            let assist = data[time][player].asist;
-            let note = data[time][player].notes;
+
+    function chartData() {
+
+        for (let i = 0; i < gameTimes.length; i++) {
+            let time = gameTimes[i];
+            let gamePlayers = Object.keys(data[time]);
+            for (let j = 0; j < gamePlayers.length; j++) {
+                let player = gamePlayers[j];
+                let score = data[time][player].score;
+                let assist = data[time][player].asist;
+                let note = data[time][player].notes;
+                // console.log(player, score, assist)
+            }
         }
+
+        // CHART 
+
+        const ctx = document.getElementById('myChart');
+
+        const chartData = {
+            labels: gameTimes,
+            datasets: [
+                {
+                    label: 'józek',
+                    data: [12, 19, 3, 5, 2, 3],
+                    borderColor: 'red',
+                    backgroundColor: 'yellow',
+                    borderWidth: 1,
+                },
+                {
+                    label: 'player statistics',
+                    data: [3,2,5,6,8,2],
+                    borderColor: 'pink',
+                    backgroundColor: 'green',
+                    borderWidth: 1,
+                },
+            ]
+        };
+
+        new Chart(ctx, {
+            type: 'line',
+            data: chartData,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Chart.js Line Chart'
+                    }
+                }
+            },
+        });
     }
-})
+    chartData();
+});
+
 
 function errData(err) {
     console.log('Error!: ')
     console.log(err)
 }
+
+
+
