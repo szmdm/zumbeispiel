@@ -1,4 +1,5 @@
 import { playerArray } from "../js/playersDataBase.js";
+import { player0, player1, player2, player3 } from "../js/playersDataBase.js";
 
 import { getDatabase, set, get, update, remove, ref, child, onValue }
     from "https://www.gstatic.com/firebasejs/9.14.0/firebase-database.js";
@@ -62,12 +63,12 @@ const InsertData = () => {
             notes: playerDescriptionValue,
         });
     })
-        // .then(() => {
-        //     alert('Data added successfully!');
-        // })
-        .catch((error) => {
-            alert(error)
-        })
+    .then(() => {
+        alert('Data added successfully!');
+    })
+    .catch((error) => {
+        alert(error)
+    })
 };
 
 const UpdateData = () => {
@@ -177,16 +178,30 @@ onValue(savedData, (snapshot) => {
 
     function chartData() {
 
-        for (let i = 0; i < gameTimes.length; i++) {
-            let time = gameTimes[i];
-            let gamePlayers = Object.keys(data[time]);
-            for (let j = 0; j < gamePlayers.length; j++) {
-                let player = gamePlayers[j];
-                let score = data[time][player].score;
-                let assist = data[time][player].asist;
-                let note = data[time][player].notes;
-                // console.log(player, score, assist)
+        // function bringStats(ofWhat) {
+        //     for (let i = 0; i < gameTimes.length; i++) {
+        //         let time = gameTimes[i];
+        //         let gamePlayers = Object.keys(data[time]);
+        //         for (let j = 0; j < gamePlayers.length; j++) {
+        //             let player = gamePlayers[j];
+        //             let score = data[time][player].score;
+        //             let assist = data[time][player].asist;
+        //             let note = data[time][player].notes;
+        //             // console.log(player, score, assist)
+        //         }
+
+        //     }
+        // }
+
+        function outputStatsOfSinglePlayer(player) {
+            const playerName = player.name;
+            let scoreArray = [];
+            for (let i = 0; i < gameTimes.length; i++) {
+                let time = gameTimes[i];
+                let score = data[time][playerName].score;
+                scoreArray.push(score);
             }
+            return scoreArray;
         }
 
         // CHART 
@@ -197,17 +212,31 @@ onValue(savedData, (snapshot) => {
             labels: gameTimes,
             datasets: [
                 {
-                    label: 'józek',
-                    data: [12, 19, 3, 5, 2, 3],
+                    label: player0.name,
+                    data: outputStatsOfSinglePlayer(player0),
                     borderColor: 'red',
                     backgroundColor: 'yellow',
                     borderWidth: 1,
                 },
                 {
-                    label: 'player statistics',
-                    data: [3,2,5,6,8,2],
+                    label: player1.name,
+                    data: outputStatsOfSinglePlayer(player1),
                     borderColor: 'pink',
                     backgroundColor: 'green',
+                    borderWidth: 1,
+                },
+                {
+                    label: player2.name,
+                    data: outputStatsOfSinglePlayer(player2),
+                    borderColor: '#3377ff',
+                    backgroundColor: '#66ff66',
+                    borderWidth: 1,
+                },
+                {
+                    label: player3.name,
+                    data: outputStatsOfSinglePlayer(player3),
+                    borderColor: '#ff00ff',
+                    backgroundColor: '#ff0080',
                     borderWidth: 1,
                 },
             ]
@@ -232,12 +261,6 @@ onValue(savedData, (snapshot) => {
     }
     chartData();
 });
-
-
-function errData(err) {
-    console.log('Error!: ')
-    console.log(err)
-}
 
 
 
