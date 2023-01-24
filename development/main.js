@@ -63,12 +63,12 @@ const InsertData = () => {
             notes: playerDescriptionValue,
         });
     })
-    .then(() => {
-        alert('Data added successfully!');
-    })
-    .catch((error) => {
-        alert(error)
-    })
+        // .then(() => {
+        //     alert('Data added successfully!');
+        // })
+        .catch((error) => {
+            alert(error)
+        })
 };
 
 const UpdateData = () => {
@@ -174,11 +174,11 @@ const savedData = ref(db, 'Fussballspiel/');
 
 onValue(savedData, (snapshot) => {
     const data = snapshot.val();
+    console.log("🚀 ~ file: main.js:177 ~ onValue ~ data", data)
     let gameTimes = Object.keys(data);
+    console.log("🚀 ~ file: main.js:178 ~ onValue ~ gameTimes", gameTimes)
 
-    function chartData() {
-
-        // function bringStats(ofWhat) {
+         // function bringStats(ofWhat) {
         //     for (let i = 0; i < gameTimes.length; i++) {
         //         let time = gameTimes[i];
         //         let gamePlayers = Object.keys(data[time]);
@@ -259,8 +259,13 @@ onValue(savedData, (snapshot) => {
             },
         });
     }
-    chartData();
-});
+);
+
+
+// function errData(err) {
+//     console.log('Error!: ')
+//     console.log(err)
+// }
 
 
 
