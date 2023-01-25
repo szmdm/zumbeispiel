@@ -10,7 +10,7 @@ const addPlayerRow = (player) => {
     <button class="add-del">X</button>
     <span class="player-name">
         <label for="text">player name</label>
-        <input type="text" value="${player.name}" id="${player.idName}" />
+        <input type="text" value="${player.name}" id="${player.idName}" readonly style="background-color: silver"/>
     </span>
     <span class="score">
         <label for="number">scores</label>

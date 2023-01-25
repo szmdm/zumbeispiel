@@ -129,41 +129,56 @@ const RemoveData = () => {
         })
 };
 
-// const FindData = () => {
-//     const dbref = ref(db);
+const FindData = () => {
+    const dbref = ref(db);
 
-//     playerArray.forEach(element => {
-//         const playerId = element.idName;
-//         const playerNameValue = document.getElementById(playerId).value;
+    playerArray.forEach(element => {
+        const playerId = element.idName;
+        const playerNameValue = document.getElementById(playerId).value;
 
-//         const playerScore = element.idScore;
-//         const playerScoreValue = document.getElementById(playerScore).value;
+        const playerScore = element.idScore;
+        const playerScoreValue = document.getElementById(playerScore).value;
 
-//         const playerAssist = element.idAssist;
-//         const playerAssistValue = document.getElementById(playerAssist).value;
+        const playerAssist = element.idAssist;
+        const playerAssistValue = document.getElementById(playerAssist).value;
 
-//         const idDescription = element.idDescription;
-//         const playerDescriptionValue = document.getElementById(idDescription).value;
+        const idDescription = element.idDescription;
+        const playerDescriptionValue = document.getElementById(idDescription).value;
 
-//         get(child(dbref, 'Fussballspiel/' + formDate.innerHTML + "/" + playerNameValue))
-//             .then((snapshot) => {
-//                 if (snapshot.exists()) {
-//                     someFieldId.innerHTML = "name" + snapshot.val().name;
-//                     someFieldId.innerHTML = "score" + snapshot.val().score;
-//                 }
-//                 else {
-//                     alert("no data found");
-//                 }
-//             })
-//             .catch((error) => {
-//                 alert(error);
-//             })
-//     })
-// };
+        get(child(dbref, 'Fussballspiel/' + formDate.innerHTML + "/" + playerNameValue))
+            .then((snapshot) => {
+                if (snapshot.exists()) {
+                    someFieldId.innerHTML = "name" + snapshot.val().name;
+                    someFieldId.innerHTML = "score" + snapshot.val().score;
+                }
+                else {
+                    alert("no data found");
+                }
+            })
+            .catch((error) => {
+                alert(error);
+            })
+    })
+};
+
+
+// enable SEND & REMOVE (firebase) button
+
+if (window.addEventListener) {
+    // Normal browsers
+    formDate.addEventListener('DOMSubtreeModified', contentChanged, false)
+} else if (window.attachEvent) {
+    // IE
+    formDate.attachEvent('DOMSubtreeModified', contentChanged);
+}
+function contentChanged() {
+    saveBtn.removeAttribute("disabled");
+    removeBtn.removeAttribute("disabled");
+}
 
 
 saveBtn.addEventListener('click', InsertData);
-updateBtn.addEventListener('click', UpdateData);
+// updateBtn.addEventListener('click', UpdateData);
 removeBtn.addEventListener('click', RemoveData);
 
 
@@ -178,87 +193,87 @@ onValue(savedData, (snapshot) => {
     let gameTimes = Object.keys(data);
     console.log("🚀 ~ file: main.js:178 ~ onValue ~ gameTimes", gameTimes)
 
-         // function bringStats(ofWhat) {
-        //     for (let i = 0; i < gameTimes.length; i++) {
-        //         let time = gameTimes[i];
-        //         let gamePlayers = Object.keys(data[time]);
-        //         for (let j = 0; j < gamePlayers.length; j++) {
-        //             let player = gamePlayers[j];
-        //             let score = data[time][player].score;
-        //             let assist = data[time][player].asist;
-        //             let note = data[time][player].notes;
-        //             // console.log(player, score, assist)
-        //         }
+    // function bringStats(ofWhat) {
+    //     for (let i = 0; i < gameTimes.length; i++) {
+    //         let time = gameTimes[i];
+    //         let gamePlayers = Object.keys(data[time]);
+    //         for (let j = 0; j < gamePlayers.length; j++) {
+    //             let player = gamePlayers[j];
+    //             let score = data[time][player].score;
+    //             let assist = data[time][player].asist;
+    //             let note = data[time][player].notes;
+    //             // console.log(player, score, assist)
+    //         }
 
-        //     }
-        // }
+    //     }
+    // }
 
-        function outputStatsOfSinglePlayer(player) {
-            const playerName = player.name;
-            let scoreArray = [];
-            for (let i = 0; i < gameTimes.length; i++) {
-                let time = gameTimes[i];
-                let score = data[time][playerName].score;
-                scoreArray.push(score);
-            }
-            return scoreArray;
+    function outputStatsOfSinglePlayer(player) {
+        const playerName = player.name;
+        let scoreArray = [];
+        for (let i = 0; i < gameTimes.length; i++) {
+            let time = gameTimes[i];
+            let score = data[time][playerName].score;
+            scoreArray.push(score);
         }
-
-        // CHART 
-
-        const ctx = document.getElementById('myChart');
-
-        const chartData = {
-            labels: gameTimes,
-            datasets: [
-                {
-                    label: player0.name,
-                    data: outputStatsOfSinglePlayer(player0),
-                    borderColor: 'red',
-                    backgroundColor: 'yellow',
-                    borderWidth: 1,
-                },
-                {
-                    label: player1.name,
-                    data: outputStatsOfSinglePlayer(player1),
-                    borderColor: 'pink',
-                    backgroundColor: 'green',
-                    borderWidth: 1,
-                },
-                {
-                    label: player2.name,
-                    data: outputStatsOfSinglePlayer(player2),
-                    borderColor: '#3377ff',
-                    backgroundColor: '#66ff66',
-                    borderWidth: 1,
-                },
-                {
-                    label: player3.name,
-                    data: outputStatsOfSinglePlayer(player3),
-                    borderColor: '#ff00ff',
-                    backgroundColor: '#ff0080',
-                    borderWidth: 1,
-                },
-            ]
-        };
-
-        new Chart(ctx, {
-            type: 'line',
-            data: chartData,
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        position: 'top',
-                    },
-                    title: {
-                        display: true,
-                        text: 'Chart.js Line Chart'
-                    }
-                }
-            },
-        });
+        return scoreArray;
     }
+
+    // CHART 
+
+    const ctx = document.getElementById('myChart');
+
+    const chartData = {
+        labels: gameTimes,
+        datasets: [
+            {
+                label: player0.name,
+                data: outputStatsOfSinglePlayer(player0),
+                borderColor: 'red',
+                backgroundColor: 'yellow',
+                borderWidth: 1,
+            },
+            {
+                label: player1.name,
+                data: outputStatsOfSinglePlayer(player1),
+                borderColor: 'pink',
+                backgroundColor: 'green',
+                borderWidth: 1,
+            },
+            {
+                label: player2.name,
+                data: outputStatsOfSinglePlayer(player2),
+                borderColor: '#3377ff',
+                backgroundColor: '#66ff66',
+                borderWidth: 1,
+            },
+            {
+                label: player3.name,
+                data: outputStatsOfSinglePlayer(player3),
+                borderColor: '#ff00ff',
+                backgroundColor: '#ff0080',
+                borderWidth: 1,
+            },
+        ]
+    };
+
+    new Chart(ctx, {
+        type: 'line',
+        data: chartData,
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                title: {
+                    display: true,
+                    text: 'Chart.js Line Chart'
+                }
+            }
+        },
+    });
+}
 );
 
 
