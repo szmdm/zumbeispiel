@@ -7,24 +7,24 @@ const addPlayerRow = (player) => {
     const newDiv = document.createElement("div");
     newDiv.classList.add(player.name);
     newDiv.innerHTML = `
-    <button class="add-del">X</button>
+    <!-- <button class="del">X</button> -->
     <span class="player-name">
         <label for="text">player name</label>
         <input type="text" value="${player.name}" id="${player.idName}" readonly style="background-color: silver"/>
     </span>
     <span class="score">
         <label for="number">scores</label>
-        <input type="number" id="${player.idScore}" />
+        <input type="number" id="${player.idScore}" value="0" min="0"/>
     </span>
     <span class="asist">
         <label for="number">asists</label>
-        <input type="number" id="${player.idAssist}" />
+        <input type="number" id="${player.idAssist}" value="0" min="0"/>
     </span>
     <span class="notes">
-        <label for="textarea">notes</label>
+        <label for="textarea">info</label>
         <textarea id="${player.idDescription}"></textarea>
     </span>
-    <button class="add-del">V</button> 
+    <!-- <button class="add">V</button> -->
     `;
 
     playerRow.appendChild(newDiv);

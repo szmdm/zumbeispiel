@@ -62,10 +62,10 @@ const InsertData = () => {
             asist: playerAssistValue,
             notes: playerDescriptionValue,
         });
-    })
-        // .then(() => {
-        //     alert('Data added successfully!');
-        // })
+    })          
+        .then(() => {
+            alert('Data added successfully!');
+        })
         .catch((error) => {
             alert(error)
         })
@@ -92,9 +92,9 @@ const UpdateData = () => {
             notes: playerDescriptionValue,
         });
     })
-        // .then(() => {
-        //     alert('Data updated successfully!');
-        // })
+        .then(() => {
+            alert('Data updated successfully!');
+        })
         .catch((error) => {
             alert(error)
         })
@@ -121,9 +121,9 @@ const RemoveData = () => {
             notes: playerDescriptionValue,
         });
     })
-        // .then(() => {
-        //     alert('Data removed!');
-        // })
+        .then(() => {
+            alert('Data removed!');
+        })
         .catch((error) => {
             alert(error)
         })
@@ -167,18 +167,16 @@ const FindData = () => {
 if (window.addEventListener) {
     // Normal browsers
     formDate.addEventListener('DOMSubtreeModified', contentChanged, false)
-} else if (window.attachEvent) {
-    // IE
-    formDate.attachEvent('DOMSubtreeModified', contentChanged);
 }
 function contentChanged() {
     saveBtn.removeAttribute("disabled");
     removeBtn.removeAttribute("disabled");
+    updateBtn.removeAttribute("disabled");
 }
 
 
 saveBtn.addEventListener('click', InsertData);
-// updateBtn.addEventListener('click', UpdateData);
+updateBtn.addEventListener('click', UpdateData);
 removeBtn.addEventListener('click', RemoveData);
 
 
@@ -221,60 +219,60 @@ onValue(savedData, (snapshot) => {
 
     // CHART 
 
-    const ctx = document.getElementById('myChart');
+//     const ctx = document.getElementById('myChart');
 
-    const chartData = {
-        labels: gameTimes,
-        datasets: [
-            {
-                label: player0.name,
-                data: outputStatsOfSinglePlayer(player0),
-                borderColor: 'red',
-                backgroundColor: 'yellow',
-                borderWidth: 1,
-            },
-            {
-                label: player1.name,
-                data: outputStatsOfSinglePlayer(player1),
-                borderColor: 'pink',
-                backgroundColor: 'green',
-                borderWidth: 1,
-            },
-            {
-                label: player2.name,
-                data: outputStatsOfSinglePlayer(player2),
-                borderColor: '#3377ff',
-                backgroundColor: '#66ff66',
-                borderWidth: 1,
-            },
-            {
-                label: player3.name,
-                data: outputStatsOfSinglePlayer(player3),
-                borderColor: '#ff00ff',
-                backgroundColor: '#ff0080',
-                borderWidth: 1,
-            },
-        ]
-    };
+//     const chartData = {
+//         labels: gameTimes,
+//         datasets: [
+//             {
+//                 label: player0.name,
+//                 data: outputStatsOfSinglePlayer(player0),
+//                 borderColor: 'red',
+//                 backgroundColor: 'yellow',
+//                 borderWidth: 1,
+//             },
+//             {
+//                 label: player1.name,
+//                 data: outputStatsOfSinglePlayer(player1),
+//                 borderColor: 'pink',
+//                 backgroundColor: 'green',
+//                 borderWidth: 1,
+//             },
+//             {
+//                 label: player2.name,
+//                 data: outputStatsOfSinglePlayer(player2),
+//                 borderColor: '#3377ff',
+//                 backgroundColor: '#66ff66',
+//                 borderWidth: 1,
+//             },
+//             {
+//                 label: player3.name,
+//                 data: outputStatsOfSinglePlayer(player3),
+//                 borderColor: '#ff00ff',
+//                 backgroundColor: '#ff0080',
+//                 borderWidth: 1,
+//             },
+//         ]
+//     };
 
-    new Chart(ctx, {
-        type: 'line',
-        data: chartData,
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    position: 'top',
-                },
-                title: {
-                    display: true,
-                    text: 'Chart.js Line Chart'
-                }
-            }
-        },
-    });
-}
-);
+//     new Chart(ctx, {
+//         type: 'line',
+//         data: chartData,
+//         options: {
+//             responsive: true,
+//             plugins: {
+//                 legend: {
+//                     position: 'top',
+//                 },
+//                 title: {
+//                     display: true,
+//                     text: 'Chart.js Line Chart'
+//                 }
+//             }
+//         },
+//     });
+// }
+// );
 
 
 // function errData(err) {
@@ -283,4 +281,4 @@ onValue(savedData, (snapshot) => {
 // }
 
 
-
+})
