@@ -37,6 +37,10 @@ const findBtn = document.getElementById('find');
 
 const formDate = document.getElementById('formDate');
 const formPlace = document.getElementById('formPlace');
+const actionInfoSend = document.querySelector('.actionInfoSend');
+const actionInfoUpdate = document.querySelector('.actionInfoUpdate');
+const actionInfoRemove = document.querySelector('.actionInfoRemove');
+
 
 // const findDate = document.getElementById('dateFind');
 
@@ -62,13 +66,14 @@ const InsertData = () => {
             asist: playerAssistValue,
             notes: playerDescriptionValue,
         });
-    })          
-        .then(() => {
-            alert('Data added successfully!');
-        })
-        .catch((error) => {
-            alert(error)
-        })
+        actionInfoSend.style.display = 'block';
+        setTimeout(() => {
+            actionInfoSend.style.display = 'none';
+        }, 3000);
+    })
+
+
+
 };
 
 const UpdateData = () => {
@@ -91,13 +96,11 @@ const UpdateData = () => {
             asist: playerAssistValue,
             notes: playerDescriptionValue,
         });
-    })
-        .then(() => {
-            alert('Data updated successfully!');
-        })
-        .catch((error) => {
-            alert(error)
-        })
+        actionInfoUpdate.style.display = 'block';
+        setTimeout(() => {
+            actionInfoUpdate.style.display = 'none';
+        }, 3000);
+    });
 };
 
 const RemoveData = () => {
@@ -120,13 +123,11 @@ const RemoveData = () => {
             asist: playerAssistValue,
             notes: playerDescriptionValue,
         });
+        actionInfoRemove.style.display = 'block';
+        setTimeout(() => {
+            actionInfoRemove.style.display = 'none';
+        }, 3000);
     })
-        .then(() => {
-            alert('Data removed!');
-        })
-        .catch((error) => {
-            alert(error)
-        })
 };
 
 const FindData = () => {
@@ -162,7 +163,7 @@ const FindData = () => {
 };
 
 
-// enable SEND & REMOVE (firebase) button
+// activate SEND & REMOVE (firebase) button
 
 if (window.addEventListener) {
     // Normal browsers
@@ -189,7 +190,6 @@ onValue(savedData, (snapshot) => {
     const data = snapshot.val();
     console.log("🚀 ~ file: main.js:177 ~ onValue ~ data", data)
     let gameTimes = Object.keys(data);
-    console.log("🚀 ~ file: main.js:178 ~ onValue ~ gameTimes", gameTimes)
 
     // function bringStats(ofWhat) {
     //     for (let i = 0; i < gameTimes.length; i++) {
@@ -218,67 +218,89 @@ onValue(savedData, (snapshot) => {
     }
 
     // CHART 
+    const destroyBtn = document.querySelector('.destroy');
+    const renderBtn = document.querySelector('.render');
 
-//     const ctx = document.getElementById('myChart');
-
-//     const chartData = {
-//         labels: gameTimes,
-//         datasets: [
-//             {
-//                 label: player0.name,
-//                 data: outputStatsOfSinglePlayer(player0),
-//                 borderColor: 'red',
-//                 backgroundColor: 'yellow',
-//                 borderWidth: 1,
-//             },
-//             {
-//                 label: player1.name,
-//                 data: outputStatsOfSinglePlayer(player1),
-//                 borderColor: 'pink',
-//                 backgroundColor: 'green',
-//                 borderWidth: 1,
-//             },
-//             {
-//                 label: player2.name,
-//                 data: outputStatsOfSinglePlayer(player2),
-//                 borderColor: '#3377ff',
-//                 backgroundColor: '#66ff66',
-//                 borderWidth: 1,
-//             },
-//             {
-//                 label: player3.name,
-//                 data: outputStatsOfSinglePlayer(player3),
-//                 borderColor: '#ff00ff',
-//                 backgroundColor: '#ff0080',
-//                 borderWidth: 1,
-//             },
-//         ]
-//     };
-
-//     new Chart(ctx, {
-//         type: 'line',
-//         data: chartData,
-//         options: {
-//             responsive: true,
-//             plugins: {
-//                 legend: {
-//                     position: 'top',
-//                 },
-//                 title: {
-//                     display: true,
-//                     text: 'Chart.js Line Chart'
-//                 }
-//             }
-//         },
-//     });
-// }
-// );
+    const ctx = document.getElementById('myChart');
 
 
-// function errData(err) {
-//     console.log('Error!: ')
-//     console.log(err)
-// }
+
+    const chartData = {
+        labels: gameTimes,
+        datasets: [
+            {
+                label: player0.name,
+                data: outputStatsOfSinglePlayer(player0),
+                borderColor: 'red',
+                backgroundColor: 'yellow',
+                borderWidth: 1,
+            },
+            {
+                label: player1.name,
+                data: outputStatsOfSinglePlayer(player1),
+                borderColor: 'pink',
+                backgroundColor: 'green',
+                borderWidth: 1,
+            },
+            {
+                label: player2.name,
+                data: outputStatsOfSinglePlayer(player2),
+                borderColor: '#3377ff',
+                backgroundColor: '#66ff66',
+                borderWidth: 1,
+            },
+            {
+                label: player3.name,
+                data: outputStatsOfSinglePlayer(player3),
+                borderColor: '#ff00ff',
+                backgroundColor: '#ff0080',
+                borderWidth: 1,
+            },
+        ]
+    };
+
+    const config = {
+        type: 'line',
+        data: chartData,
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                title: {
+                    display: true,
+                    text: 'single game score stats'
+                }
+            }
+        }
+    }
+
+    const myChart = new Chart(
+        document.getElementById('myChart'),
+        config,
+    );
 
 
-})
+    // let myChart = new Chart(ctx, config);
+
+    function destroy() {
+        myChart.destroy();
+    }
+
+    function render() {
+        myChart = new Chart(
+            document.getElementById('myChart'),
+            config,
+        );
+    }
+
+    destroyBtn.addEventListener('click', destroy);
+    renderBtn.addEventListener('click', render);
+
+}
+)
+
+
+
+

@@ -78,6 +78,10 @@
                 <button id="save" disabled>send</button>
                 <button id="update" disabled>update</button>
                 <button id="remove" disabled>remove</button>
+                <div class="actionInfoSend" style="display: none;">Your data has been sent</div>
+                <div class="actionInfoUpdate" style="display: none;">Your data has been updated</div>
+                <div class="actionInfoRemove" style="display: none;">Your data has been removed</div>
+            
             </div>
         </div>
     </section>
@@ -95,6 +99,8 @@
             <canvas id="myChart" width="600" height="400"></canvas>
 
         </div>
+        <button class="destroy">destroy</button>
+        <button class="render">render</button>
     </section>
 
     <script type="module" src="./js/players.js"></script>
